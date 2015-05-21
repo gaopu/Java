@@ -9,8 +9,16 @@ public class MicroWaveWindow extends JFrame{
 
     JLabel timeLable;//倒计时的时间标签
 
-    public void setTimeLable(String time) {
-        this.timeLable.setText(time);
+    public void setTimeLable(int hour,int minutes,int second) {
+        String hourStr = String.format("%2d",hour);
+        String minutesStr = String.format("%2d",minutes);
+        String secondStr = String.format("%2d", second);
+
+        hourStr = hourStr.replace(' ','0');
+        minutesStr = minutesStr.replace(' ','0');
+        secondStr = secondStr.replace(' ','0');
+
+        this.timeLable.setText(hourStr + ":" + minutesStr + ":" + secondStr);
     }
 
     //传入它控制的微波炉
