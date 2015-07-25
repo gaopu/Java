@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+    <constant name="struts.multipart.maxSize" value="1000000000"/>
+    <package name="UpAndDown" namespace="/" extends="struts-default">
+        <action name="file_*" method="{1}File" class="com.geekgao.file.FileAction">
+            <result name="input">
+                /{1}File.jsp
+            </result>
+
+            <result name="success">
+                /index.jsp
+            </result>
+        </action>
+    </package>
+</struts>
