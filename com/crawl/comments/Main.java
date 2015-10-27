@@ -1,5 +1,6 @@
 package com.crawl.comments;
 
+import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -11,8 +12,9 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.*;
-import java.util.concurrent.*;
+import java.util.Set;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * Created by geekgao on 15-10-25.
@@ -21,13 +23,15 @@ public class Main {
     public static void main(String[] args) throws IOException, InterruptedException {
         //获取要抓取的app的id
         Set<String> appIds = CrawlUtils.getAppIds("",1);
+        //设置超时
+        RequestConfig requestConfig = RequestConfig.custom().setConnectionRequestTimeout(2000).setSocketTimeout(2000).setConnectTimeout(2000).build();
+        //建立client
+        CloseableHttpClient client = HttpClients.custom().setDefaultRequestConfig(requestConfig).build();
 
         for (String id:appIds) {
-            //建立client
-            CloseableHttpClient client = HttpClients.createDefault();
             //建立线程池
             ExecutorService executorService = Executors.newFixedThreadPool(30);
-
+            //建立xml根节点
             Element app = DocumentHelper.createDocument().addElement("app");
 
             //添加appid节点
@@ -61,26 +65,15 @@ public class Main {
             int commentsCount = CrawlUtils.getCommentCount(Integer.valueOf(id));
             System.out.println("[" + appName + "]总共" + commentsCount + "条评论");
             //每次获取的评论个数
-            int count = 50;
-            //用这个控制每个线程
-            List<Future> futures = new LinkedList<Future>();
+            int count = 25;
             for (int start = 0;start < commentsCount;start += count) {
                 //如果最后一次不够count个评论
                 if (start + count > commentsCount) {
                     count = commentsCount - start;
                 }
-//                System.out.println("从第" + start + "个评论开始抓取");
-                Future future = executorService.submit(new CrawlComments(client, app, start, count, Integer.valueOf(id)));
 
-                try {
-                    //设置超时
-                    future.get(7000, TimeUnit.MILLISECONDS);
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                } catch (TimeoutException e) {
-                    System.err.println("[" + appName  + "]从[" + start + "]开始的抓取超时了,退出此线程");
-                    future.cancel(true);
-                }
+//                System.out.println("从第" + start + "个评论开始抓取");
+                executorService.submit(new CrawlComments(app, start, count, Integer.valueOf(id)));
             }
 
             executorService.shutdown();
@@ -88,11 +81,11 @@ public class Main {
                 if (executorService.isTerminated()) {
                     break;
                 }
-                Thread.sleep(100);
+                Thread.sleep(1000);
             }
 
-            client.close();
             CrawlUtils.writeXmlToFile(app,"/home/geekgao/comments/" + System.currentTimeMillis() + ".xml");
         }
+        client.close();
     }
 }
