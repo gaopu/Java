@@ -16,6 +16,8 @@ public class Crawl extends Thread {
     String gid;
     //与弹幕服务器交互的控制器
     MessageHandler messageHandler;
+    //登录名
+    String username;
 
     public Crawl() throws IOException {
         rid = Utils.getRoomId();
@@ -23,7 +25,7 @@ public class Crawl extends Thread {
 
     /**
      *
-     * 初始化弹幕服务器地址数据和弹幕分组信息
+     * 初始化"弹幕服务器地址数据"和"弹幕分组信息"和"登录用户名"
      */
     public void init() throws IOException {
         String ip = Utils.getServerIP();
@@ -56,6 +58,8 @@ public class Crawl extends Thread {
                 }
             } else if (msg.startsWith("type@=setmsggroup")) {
                 gid = msg.split("gid@=")[1].split("/")[0];
+            } else if (msg.startsWith("type@=loginres")) {
+                username = msg.split("username@=")[1].split("/")[0];
             }
         }
         socket.close();
@@ -66,11 +70,21 @@ public class Crawl extends Thread {
         System.out.println("连接弹幕服务器(danmu.douyutv.com:" + ports.get(0) + ")");
         messageHandler = new MessageHandler(socket);
 
-        String loginreq = "type@=loginreq/username@=visitor503535/password@=1234567890123456/roomid@=" + rid + "/";
+        String loginreq = "type@=loginreq/username@=" + username + "/password@=1234567890123456/roomid@=" + rid + "/";
         messageHandler.send(loginreq);
-        String joinGroup = "type@=joingroup/rid@=" + rid + "/gid@=" + gid + "/";
+        System.out.println("登录名:" + username);
+
+        String joinGroup;
+        if (Utils.isSeaMode()) {
+            joinGroup = "type@=joingroup/rid@=" + rid + "/gid@=-9999/";
+            System.out.println("海量弹幕模式:开启");
+        } else {
+            joinGroup = "type@=joingroup/rid@=" + rid + "/gid@=" + gid + "/";
+            System.out.println("海量弹幕模式:关闭");
+            System.out.println("进入" + gid + "号弹幕分组");
+        }
+
         messageHandler.send(joinGroup);
-        System.out.println("进入" + gid + "号弹幕分组");
     }
 
     @Override
@@ -78,15 +92,21 @@ public class Crawl extends Thread {
         try {
             System.out.println("房间名:" + Utils.getRoomName());
             System.out.println("主播:" + Utils.getOwnerName());
-            if (!Utils.roomIsAlive()) {
+            /*if (!Utils.roomIsAlive()) {
                 System.out.println("房间未开播，程序结束.");
                 return;
             } else {
                 System.out.println("状态:正在直播");
-            }
+            }*/
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
+        try {
             init();
             login();
+            login();
+            System.out.println("--------------------------");
 
             long start = System.currentTimeMillis();
             while (true) {
@@ -94,15 +114,15 @@ public class Crawl extends Thread {
                 String msg = new String(Arrays.copyOfRange(bytes,8,bytes.length));
 
                 if (msg.startsWith("type@=chatmessage")) {
-                    String nickname = msg.split("@Snick@A=")[1].split("@Srg@A")[0];
-                    String content = msg.split("content@=")[1].split("/snick@=")[0];
+                    String nickname = msg.split("Snick@A=",2)[1].split("@",2)[0];
+                    String content = msg.split("content@=",2)[1].split("/",2)[0];
                     System.out.println("[" + nickname + "]:" + content);
-//                    System.out.println(msg);
                 }
 
                 long end = System.currentTimeMillis();
                 if (end - start > 30000) {
                     messageHandler.send("type=mrkl/");
+                    start = System.currentTimeMillis();
                 }
 
                 Thread.sleep(1);

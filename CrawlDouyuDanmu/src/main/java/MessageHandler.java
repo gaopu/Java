@@ -36,7 +36,7 @@ public class MessageHandler {
         byte[] bytes = new byte[contentLen];
         ByteArrayOutputStream byteArray = new ByteArrayOutputStream();
         while ((len = inputStream.read(bytes,0,contentLen - readLen)) != -1) {
-            byteArray.write(bytes);
+            byteArray.write(bytes,0,len);
             readLen += len;
             if (readLen == contentLen) {
                 break;

@@ -69,6 +69,14 @@ public class Utils {
         }
     }
 
+    /**
+     *
+     * @return 返回值代表是否开启海量弹幕模式
+     */
+    public static boolean isSeaMode() {
+        return config.getProperty("seaMode").equals("true");
+    }
+
     public static String getServerIP() throws IOException {
         return config.getProperty("serverIP");
     }
