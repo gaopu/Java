@@ -105,7 +105,6 @@ public class Crawl extends Thread {
         try {
             init();
             login();
-            login();
             System.out.println("--------------------------");
 
             long start = System.currentTimeMillis();
