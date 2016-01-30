@@ -151,6 +151,7 @@ public class Crawl extends Thread {
                 //心跳包
                 if (end - start > 60000) {
                     outputStream.write(new byte[]{0x00, 0x06, 0x00, 0x00});
+                    start = System.currentTimeMillis();
                 }
 
                 Thread.sleep(1);

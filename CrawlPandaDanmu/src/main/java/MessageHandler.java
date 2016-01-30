@@ -11,6 +11,7 @@ import java.util.List;
  */
 public class MessageHandler {
     private Socket socket;
+    private InputStream inputStream;
 
     public MessageHandler(Socket socket) {
         this.socket = socket;
@@ -22,7 +23,9 @@ public class MessageHandler {
      * @throws IOException
      */
     public List<String> read() throws IOException {
-        InputStream inputStream = socket.getInputStream();
+        if (inputStream == null) {
+            inputStream = socket.getInputStream();
+        }
         byte[] typeBytes = new byte[4];
 
         //读取前4个字节，得到数据类型信息
@@ -93,7 +96,7 @@ public class MessageHandler {
         } else if ((typeBytes[0] == 0x00 && typeBytes[1] == 0x06 && typeBytes[2] == 0x00 && typeBytes[3] == 0x06)) {
             //下条内容的长度
             int contentLen = 0;
-            //读取4个字节，得到数据长度
+            //读取2个字节，得到数据长度
             for (int i = 1;i >= 0;i--) {
                 int tmp = inputStream.read();
                 contentLen += tmp * Math.pow(16,2 * i);
