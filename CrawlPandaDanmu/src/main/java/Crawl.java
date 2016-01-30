@@ -105,10 +105,10 @@ public class Crawl extends Thread {
         socket = new Socket(serverIp,port);
         System.out.println("连接弹幕服务器:" + serverIp + ":" + port);
         ByteArrayOutputStream byteArray = new ByteArrayOutputStream();
-        byte[] b = new byte[]{0x00, 0x06, 0x00, 0x02, 0x00, 0x60, 0x75, 0x3a};
+        byte[] b = new byte[]{0x00, 0x06, 0x00, 0x02, 0x00, 0x61};
         byteArray.write(b);
 
-        String msg = rid + "@" + appid + "\n" +
+        String msg = "u:" + rid + "@" + appid + "\n" +
                 "k:" + k + "\n" +
                 "t:" + t + "\n" +
                 "ts:" + ts + "\n" +
