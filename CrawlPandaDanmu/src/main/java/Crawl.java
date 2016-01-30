@@ -7,7 +7,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.Socket;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -37,6 +36,7 @@ public class Crawl extends Thread {
      * @throws IOException
      */
     public boolean init() throws IOException {
+        System.out.println("获取登录信息");
         String roomId = Utils.getRoomId();
         String time = String.valueOf(System.currentTimeMillis());
 
@@ -103,7 +103,7 @@ public class Crawl extends Thread {
      */
     public void login() throws IOException {
         socket = new Socket(serverIp,port);
-        System.out.println("连接弹幕服务器:" + serverIp + ":" + port);
+        System.out.println("登录弹幕服务器:" + serverIp + ":" + port);
         ByteArrayOutputStream byteArray = new ByteArrayOutputStream();
         byte[] b = new byte[]{0x00, 0x06, 0x00, 0x02, 0x00, 0x61};
         byteArray.write(b);
@@ -124,12 +124,16 @@ public class Crawl extends Thread {
 
     @Override
     public void run() {
-        MessageHandler messageHandler;
+        MessageHandler messageHandler = null;
         OutputStream outputStream;
 
         try {
-            init();
+            //初始化失败
+            if (!init()) {
+                return;
+            }
             login();
+            System.out.println("----------------------------");
 
             messageHandler = new MessageHandler(socket);
             outputStream = socket.getOutputStream();
@@ -160,6 +164,12 @@ public class Crawl extends Thread {
             e.printStackTrace();
         } catch (InterruptedException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                messageHandler.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
