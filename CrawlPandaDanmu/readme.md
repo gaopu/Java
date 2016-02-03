@@ -1,3 +1,3 @@
 PandaTV弹幕抓取工具
 
-直接运行main就行,有时候打开会遇到Connection reset异常,但很少见,如果遇到,重新运行就行了
+直接运行main就行
