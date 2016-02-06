@@ -104,16 +104,16 @@ public class Crawl extends Thread {
     public void login() throws IOException {
         socket = new Socket(serverIp,port);
         System.out.println("登录弹幕服务器:" + serverIp + ":" + port);
-        ByteArrayOutputStream byteArray = new ByteArrayOutputStream();
-        byte[] b = new byte[]{0x00, 0x06, 0x00, 0x02, 0x00, 0x60};
-        byteArray.write(b);
-
         String msg = "u:" + rid + "@" + appid + "\n" +
                 "k:" + k + "\n" +
                 "t:" + t + "\n" +
                 "ts:" + ts + "\n" +
                 "sign:" + sign + "\n" +
                 "authtype:" + authType;
+        ByteArrayOutputStream byteArray = new ByteArrayOutputStream();
+        byte[] b = new byte[]{0x00, 0x06, 0x00, 0x02, 0x00, (byte) msg.length()};
+        byteArray.write(b);
+
         byteArray.write(msg.getBytes("ISO-8859-1"));
         OutputStream outputStream = socket.getOutputStream();
         outputStream.write(byteArray.toByteArray());
