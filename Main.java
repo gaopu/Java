@@ -48,9 +48,10 @@ public class Main {
                 out.write(bytes,0,len);
             }
             out.close();
+            Runtime.getRuntime().exec("eog /tmp/zhihu.gif");//ubuntu下看图片的命令是eog
 
             //请用户输入验证码
-            System.out.println("请输入验证码：");
+            System.out.print("请输入验证码：");
             Scanner scanner = new Scanner(System.in);
             String captcha = scanner.next();
             valuePairs.add(new BasicNameValuePair("captcha", captcha));
