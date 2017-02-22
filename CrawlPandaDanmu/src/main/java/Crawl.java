@@ -142,6 +142,9 @@ public class Crawl extends Thread {
             while (true) {
                 List<String> msgs = messageHandler.read();
                 for (String s:msgs) {
+                    if (s.equals("")) {
+                        continue;
+                    }
                     String type = s.split("\\{\"type\":\"",2)[1].split("\"",2)[0];
                     //发言弹幕
                     if (type.equals("1")) {
