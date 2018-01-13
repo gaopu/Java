@@ -19,7 +19,7 @@ public class MessageHandler {
 
     /**
      *
-     * @return 返回有意义的json串
+     * @return 返回人可阅读的json串
      * @throws IOException
      */
     public List<String> read() throws IOException {
@@ -39,9 +39,7 @@ public class MessageHandler {
         //这是一条弹幕信息
         if (typeBytes[0] == 0x00 && typeBytes[1] == 0x06 && typeBytes[2] == 0x00 && typeBytes[3] == 0x03) {
             //越过前面没用的字节，跳到标记内容长度的字节
-            for (int i = 0;i < 7;i++) {
-                inputStream.read();
-            }
+            inputStream.skip(7);
             //下条内容的长度
             int contentLen = 0;
             //读取4个字节，得到数据长度
@@ -74,9 +72,9 @@ public class MessageHandler {
                     //读取4个字节，得到弹幕数据长度
                     for (int j = 0,k = 3;j < 4;j++,k--) {
                         int n = bytes[i + j];
-                        /**
-                         * 原数据一个字节可保存0~255的数,但是byte范围是-128~127,所以要变回原来的真实数据
-                         * 后面的数据不变是因为后面的字符串都是ascii字符,都在0~127之内
+                        /*
+                          原数据一个字节可保存0~255的数,但是byte范围是-128~127,所以要变回原来的真实数据
+                          后面的数据不变是因为后面的字符串都是ascii字符,都在0~127之内
                          */
                         if (n < 0) {
                             n = 256 + bytes[i + j];
@@ -102,9 +100,7 @@ public class MessageHandler {
                 contentLen += tmp * Math.pow(16,2 * i);
             }
 
-            for (int i = 0;i < contentLen;i++) {
-                inputStream.read();
-            }
+            inputStream.skip(contentLen);
         }
 
         return result;

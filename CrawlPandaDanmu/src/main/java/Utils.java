@@ -15,7 +15,7 @@ public class Utils {
         }
     }
 
-    public static String getRoomId() throws IOException {
+    public static String getRoomId() {
         return config.getProperty("roomId");
     }
 
