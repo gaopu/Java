@@ -4,7 +4,7 @@ import java.net.Socket;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
-public class DouyuBarrageServerHandler {
+public class DouyuBarrageHandler {
     private static String host = "openbarrage.douyutv.com";
 
     private static int port = 8601;
@@ -13,7 +13,7 @@ public class DouyuBarrageServerHandler {
 
     private String roomId;
 
-    public DouyuBarrageServerHandler(String roomId) {
+    public DouyuBarrageHandler(String roomId) {
         this.roomId = roomId;
 
         try {
