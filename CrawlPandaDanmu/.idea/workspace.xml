@@ -2,22 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0e05cc9e-cc9b-40f0-954d-baf2a713b145" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/../CrawlDouyuDanmu/src/main/java/DouyuBarrageHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../CrawlDouyuDanmu/src/main/java/MessageType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../CrawlDouyuDanmu/src/main/java/Start.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CrawlDouyuDanmu/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../CrawlDouyuDanmu/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CrawlDouyuDanmu/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../CrawlDouyuDanmu/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CrawlDouyuDanmu/.idea/libraries/Maven__org_jsoup_jsoup_1_8_3.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CrawlDouyuDanmu/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../CrawlDouyuDanmu/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../CrawlDouyuDanmu/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../CrawlDouyuDanmu/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CrawlDouyuDanmu/CrawlDouyuDanmu.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../CrawlDouyuDanmu/CrawlDouyuDanmu.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CrawlDouyuDanmu/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../CrawlDouyuDanmu/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CrawlDouyuDanmu/src/main/java/Crawl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CrawlDouyuDanmu/src/main/java/Main.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CrawlDouyuDanmu/src/main/java/Message.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CrawlDouyuDanmu/src/main/java/MessageHandler.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CrawlDouyuDanmu/src/main/java/Utils.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CrawlDouyuDanmu/src/main/resources/config.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CrawlDouyuDanmu/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/../CrawlDouyuDanmu/readme.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <ignored path="CrawlPandaDanmu.iws" />
