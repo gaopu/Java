@@ -15,10 +15,7 @@ public class DownloadImg {
 
     public static void writeImgEntityToFile(HttpEntity imgEntity,String fileAddress) {
         File storeFile = new File(fileAddress);
-        FileOutputStream output = null;
-        try {
-            output = new FileOutputStream(storeFile);
-
+        try (FileOutputStream output = new FileOutputStream(storeFile)){
             if (imgEntity != null) {
                 InputStream instream;
                 instream = imgEntity.getContent();
@@ -27,18 +24,11 @@ public class DownloadImg {
                 while ((count = instream.read(b)) != -1) {
                     output.write(b, 0, count);
                 }
-
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                output.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }
     }
 
@@ -46,11 +36,10 @@ public class DownloadImg {
         System.out.println("获取Bing图片地址中……");
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        CloseableHttpClient httpClient = HttpClients.createDefault();
         HttpGet httpGet = new HttpGet("http://cn.bing.com/");
-        CloseableHttpResponse response = null;
-        try {
-            response = httpClient.execute(httpGet);
+        try (
+            CloseableHttpClient httpClient = HttpClients.createDefault();
+            CloseableHttpResponse response = httpClient.execute(httpGet)) {
             Pattern p = Pattern.compile("g_img=\\{url:.*\\.jpg");
             Matcher m = p.matcher(EntityUtils.toString(response.getEntity()));
             String address = null;
@@ -70,13 +59,6 @@ public class DownloadImg {
             System.out.println("下载完毕.");
         } catch (IOException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                httpClient.close();
-                response.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }
     }
 }
