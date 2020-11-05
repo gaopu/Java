@@ -1,3 +1,6 @@
+## Stargazers over time
+[![Stargazers over time](https://starchart.cc/gaopu/Java.svg)](https://starchart.cc/gaopu/Java)
+
 ## 这个仓库内的代码是什么东西
 都是以前上大学时自己写的一些东西，有的为了交作业，有的为了玩😊。
 
