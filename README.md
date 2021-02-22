@@ -11,4 +11,4 @@
 不值得（不过也感谢star了的朋友❤️）。
 
 ## 最后
-我这里放一个阿里云私人推广链接，有需要搭建博客，搭建私人在线服务进行学习的朋友可以逛逛看，[www.aliyun.com](https://www.aliyun.com/minisite/goods?userCode=aj6ujyr6)😀。我的私人博客就是用阿里云搭建的，欢迎大家访问并提出任何宝贵意见，[www.geekgao.cn](https://www.geekgao.cn)
+我这里放一个腾讯云私人推广链接，有需要搭建博客、搭建私人在线服务进行学习的朋友可以逛逛看，😀。我的私人博客是用[腾讯云](https://curl.qcloud.com/Kr4BAQsb)搭建的，我的是2核4G8M，最近免费给升级成4核8G8M。欢迎大家访问我的私人博客，[www.geekgao.cn](https://www.geekgao.cn)
