@@ -30,7 +30,7 @@ public class Main {
             CloseableHttpResponse response = httpClient.execute(getHomePage);
             String responseHtml = EntityUtils.toString(response.getEntity());
             String xsrfValue = responseHtml.split("<input type=\"hidden\" name=\"_xsrf\" value=\"")[1].split("\"/>")[0];
-            System.out.println("_xsrf:" + xsrfValue);
+            System.out.println("_xsrf_value:" + xsrfValue);
             response.close();
             List<NameValuePair> valuePairs = new LinkedList<NameValuePair>();
             valuePairs.add(new BasicNameValuePair("_xsrf" , xsrfValue));
