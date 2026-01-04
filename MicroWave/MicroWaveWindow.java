@@ -92,6 +92,9 @@ public class MicroWaveWindow extends JFrame{
         JLabel function = new JLabel("功能");
         JButton startButton = new JButton("开始");
         JButton pauseButton = new JButton("暂停");
+        // 新增：用于切换暂停/恢复
+        final String PAUSE_TEXT = "暂停";
+        final String RESUME_TEXT = "恢复";
         JButton stopButton = new JButton("停止");
         downPanel.add(function);
         downPanel.add(startButton);
@@ -110,7 +113,13 @@ public class MicroWaveWindow extends JFrame{
 
         pauseButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                microWave.setIsRun(false);
+                if (!microWave.isPaused()) {
+                    microWave.setPaused(true);
+                    pauseButton.setText(RESUME_TEXT);
+                } else {
+                    microWave.setPaused(false);
+                    pauseButton.setText(PAUSE_TEXT);
+                }
             }
         });
 
