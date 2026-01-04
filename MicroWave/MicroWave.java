@@ -6,12 +6,14 @@ public class MicroWave extends Thread{
     private int minutes;//分钟数
     private int second;//秒数
     private boolean isRun;//是否正在运行
+    private boolean isPaused;//是否暂停
 
     public MicroWave() {
         hour = 0;
         minutes = 0;
         second = 0;
         isRun = false;
+        isPaused = false;
     }
 
     @Override
@@ -20,9 +22,8 @@ public class MicroWave extends Thread{
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-
-                //如果正在运行就改变时间
-                if (isRun) {
+                //如果正在运行且未暂停就改变时间
+                if (isRun && !isPaused) {
                     if (second >= 1) {
                         second--;
                     } else {
@@ -44,6 +45,21 @@ public class MicroWave extends Thread{
                 }
             }
         },0,1000);
+    }
+
+    // 新增：切换暂停/恢复状态
+    public void togglePause() {
+        isPaused = !isPaused;
+    }
+
+    // 新增：设置暂停状态
+    public void setPaused(boolean paused) {
+        this.isPaused = paused;
+    }
+
+    // 新增：获取暂停状态
+    public boolean isPaused() {
+        return isPaused;
     }
 
     public int getHour() {
