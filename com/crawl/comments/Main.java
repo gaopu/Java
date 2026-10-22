@@ -28,6 +28,7 @@ public class Main {
         //建立client
         CloseableHttpClient client = HttpClients.custom().setDefaultRequestConfig(requestConfig).build();
 
+        int savedCount = 0;
         for (String id:appIds) {
             //建立线程池
             ExecutorService executorService = Executors.newFixedThreadPool(30);
@@ -85,6 +86,7 @@ public class Main {
             }
 
             CrawlUtils.writeXmlToFile(app,"/home/geekgao/comments/" + System.currentTimeMillis() + ".xml");
+            savedCount++;
         }
         client.close();
     }

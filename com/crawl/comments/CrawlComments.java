@@ -18,6 +18,8 @@ import java.net.SocketTimeoutException;
  * Created by geekgao on 15-10-19.
  */
 public class CrawlComments implements Runnable {
+    private static final int MAX_RETRY = 3;
+
     private Element app;
     private int start;
     private int count;

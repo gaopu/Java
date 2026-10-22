@@ -99,6 +99,7 @@ public class Main {
         Pattern bookIsbnRegex = Pattern.compile("<span class=\"pl\">ISBN:</span> (.*?)<br/>");
         Pattern bookImgRegex = Pattern.compile("<img src=\"(.*?)\" title=\"点击看大图\"");
 
+        int totalBookCount = 0;
         //分别抓取每一种类别的书籍
         for (String tag:tagList) {
             int nowPageNum = 0;//目前正在抓取的页数
@@ -134,6 +135,7 @@ public class Main {
                     threadList.add(new GetBookInfoThread(httpClient, m.group(1), m.group(2), rootElement, bookAuthorRegex, bookPublishRegex, bookIsbnRegex,bookImgRegex));
                     findCount++;
                 }
+                totalBookCount += findCount;
                 //没有知道到代表这种类别的书都找完了，那么直接退出此类书籍的查找
                 if (findCount == 0) {
                     break;

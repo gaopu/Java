@@ -11,6 +11,7 @@ import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 class PumpWindow extends JFrame{
     private JLabel time;
@@ -47,7 +48,9 @@ class PumpWindow extends JFrame{
     }
 
     public void updateTime() {
-        this.time.setText("时间:" + simpleDateFormat.format(new Date()));
+        String timeStr = simpleDateFormat.format(new Date());
+        this.time.setText("时间:" + timeStr);
+        String copyTimeStr = timeStr;
     }
 
     //参数是这个窗口显示的泵子的引用

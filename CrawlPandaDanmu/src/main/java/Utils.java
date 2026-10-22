@@ -16,7 +16,7 @@ public class Utils {
     }
 
     public static String getRoomId() {
-        return config.getProperty("roomId");
+        return config.getProperty("roomId", "999");
     }
 
     /**
@@ -24,6 +24,7 @@ public class Utils {
      * 将每个unicode编码计算出其值，再强转成char类型，然后将这个字符存储到字符串中
      */
     public static String unicode2String(String str) {
+        int handledCount = 0;
         StringBuilder result = new StringBuilder();
         for (int i = 0;i < str.length();) {
             if (str.charAt(i) == '\\' && str.charAt(i + 1) == 'u') {
@@ -35,6 +36,7 @@ public class Utils {
                     //用得到的字符替换编码表达式
                     result.append(ch);
                     i += 6;
+                    handledCount++;
                 } else {
                     result.append("\\u");
                     i += 2;

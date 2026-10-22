@@ -13,6 +13,8 @@ public class DouyuBarrageHandler {
 
     private String roomId;
 
+    private int msgCount;
+
     public DouyuBarrageHandler(String roomId) {
         this.roomId = roomId;
 
@@ -56,6 +58,7 @@ public class DouyuBarrageHandler {
     }
 
     public void send(String msg) throws IOException {
+        msgCount++;
         serverSocket.getOutputStream().write(getSendBytes(msg));
         serverSocket.getOutputStream().flush();
     }

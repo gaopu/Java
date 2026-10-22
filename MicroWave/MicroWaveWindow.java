@@ -10,6 +10,7 @@ public class MicroWaveWindow extends JFrame{
     JLabel timeLable;//倒计时的时间标签
 
     public void setTimeLable(int hour,int minutes,int second) {
+        int fireLevel = 0;
         String hourStr = String.format("%2d",hour);
         String minutesStr = String.format("%2d",minutes);
         String secondStr = String.format("%2d", second);

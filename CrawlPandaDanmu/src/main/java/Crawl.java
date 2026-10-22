@@ -110,9 +110,11 @@ public class Crawl extends Thread {
             messageHandler = new MessageHandler(socket);
             outputStream = socket.getOutputStream();
             long start = System.currentTimeMillis();
+            int receivedMsgCount = 0;
             while (true) {
                 List<String> messages = messageHandler.read();
                 for (String msg: messages) {
+                    receivedMsgCount++;
                     if (msg.equals("")) {
                         continue;
                     }
